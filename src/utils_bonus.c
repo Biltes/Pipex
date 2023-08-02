@@ -6,45 +6,28 @@
 /*   By: migupere <migupere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 11:11:35 by migupere          #+#    #+#             */
-/*   Updated: 2023/07/28 12:19:01 by migupere         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:25:20 by migupere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	bad_args(void)
+void	ft_here_doc(char *eof)
 {
-	ft_putstr_fd("Error: bad arguments\n", 2);
-	ft_putstr_fd("Ex: ./pipex <file1> <cmd1>"
-		" <cmd2> <...> <file2>\n", 1);
-	ft_putstr_fd("	.pipex \"here_doc\""
-		" <limiter> <cmd> <cmd1> <...> <file>\n", 1);
-	exit(EXIT_FAILURE);
-}
+	char	*line;
+	int		fd_here_doc;
 
-int	get_next_line_simple(char **line)
-{
-	char	*buffer;
-	int		i;
-	int		m;
-	char	c;
-
-	i = 0;
-	m = 0;
-	buffer = (char *)malloc(10000);
-	if (!buffer)
-		return (-1);
-	m = read(0, &c, 1);
-	while (m && c != '\n' && c != '\0')
+	fd_here_doc = open("here_doc", O_RDWR | O_TRUNC | O_CREAT, 0644);
+	ft_printf("> ");
+	line = get_next_line(0);
+	while (line && (ft_strncmp(line, eof, ft_strlen(eof))
+			|| ft_strclen(line, '\n') != ft_strlen(eof)))
 	{
-		if (c != '\n' && c != '\0')
-			buffer[i++] = c;
-		m = read(0, &c, 1);
+		ft_putstr_fd(line, fd_here_doc);
+		free(line);
+		ft_printf("> ");
+		line = get_next_line(0);
 	}
-	buffer[i] = '\n';
-	buffer[++i] = '\0';
-	*line = buffer;
-	free(buffer);
-	return (m);
+	free(line);
+	close(fd_here_doc);
 }
-

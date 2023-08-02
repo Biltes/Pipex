@@ -6,7 +6,7 @@
 #    By: migupere <migupere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/28 11:17:10 by migupere          #+#    #+#              #
-#    Updated: 2023/07/28 11:37:12 by migupere         ###   ########.fr        #
+#    Updated: 2023/08/01 12:25:41 by migupere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = pipex
 
 NAME_BONUS = pipex_bonus
 
-SRC = src/pipex.c src/utils.c
+SRC = src/pipex.c
 
 SRC_BONUS = src/pipex_bonus.c src/utils_bonus.c
 
